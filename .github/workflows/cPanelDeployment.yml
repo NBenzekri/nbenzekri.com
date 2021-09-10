@@ -17,4 +17,3 @@ jobs:
         ftp-server: ${{ secrets.NBENZEKRI_FTP_SERVER }}
         ftp-username: ${{ secrets.NBENZEKRI_FTP_USERNAME }}
         ftp-password: ${{ secrets.NBENZEKRI_FTP_PASSWORD }}
-        server-dir: public-html/
