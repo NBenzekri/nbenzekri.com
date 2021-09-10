@@ -18,8 +18,4 @@ jobs:
         ftp-username: ${{ secrets.NBENZEKRI_FTP_USERNAME }}
         ftp-password: ${{ secrets.NBENZEKRI_FTP_PASSWORD }}
         server-dir: public-html/
-        exclude:
-          - **/.git*
-          - **/.git*/**
-          - **/node_modules/**
-
+        exclude: [ "**/.git*", "**/.git*/**", "**/node_modules/**" ]
