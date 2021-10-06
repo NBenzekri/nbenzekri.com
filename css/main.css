@@ -440,6 +440,11 @@ body > footer .copyrights {
 /* / copyrights block */
 /* / Footer */
 
+.language {
+    display: flex;
+    justify-content: center;
+}
+
 /* Top Spaces */
 .ts-10 {
   padding-top: 10px;
