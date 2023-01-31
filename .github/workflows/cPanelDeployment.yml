@@ -1,19 +1,45 @@
-name: Publish Website to CPanel
+## upload to cpanel
+#  name: Publish Website to CPanel
+#
+# on:
+#   push:
+#     branches:
+#       - master
+# jobs:
+#   FTP-Deploy-Action:
+#     name: FTP-Deploy-Action
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2.1.0
+#       with:
+#         fetch-depth: 2
+#     - name: FTP-Deploy-Action
+#       uses: SamKirkland/FTP-Deploy-Action@3.1.1
+#       with:
+#         ftp-server: ${{ secrets.NBENZEKRI_FTP_SERVER }}
+#         ftp-username: ${{ secrets.NBENZEKRI_FTP_USERNAME }}
+#         ftp-password: ${{ secrets.NBENZEKRI_FTP_PASSWORD }}
+
+name: Upload Website
+
 on:
   push:
     branches:
       - master
+
 jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.1.0
-      with:
-        fetch-depth: 2
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@3.1.1
-      with:
-        ftp-server: ${{ secrets.NBENZEKRI_FTP_SERVER }}
-        ftp-username: ${{ secrets.NBENZEKRI_FTP_USERNAME }}
-        ftp-password: ${{ secrets.NBENZEKRI_FTP_PASSWORD }}
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-3
+
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./public/ s3://nbenzekri.com --delete
